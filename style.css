@@ -1,8 +1,3 @@
-/* CSS 이미지를 가져오는 방법 
-  이미지 반복 정지방법
-  배경전체로 늘리는법 
-  */
-
 body {
   margin: 0;
   background-image: url("images/background.jpg");
