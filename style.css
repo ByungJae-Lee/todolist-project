@@ -39,3 +39,14 @@ body {
   justify-content: space-between;
   padding: 1em;
 }
+
+.done-task {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  background-color: gray;
+}
+/* 완료된 요소에 밑줄긋기 */
+.task-done {
+  text-decoration: line-through;
+}
