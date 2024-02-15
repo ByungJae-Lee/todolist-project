@@ -68,7 +68,7 @@ function render() {
   // 할일 생성됬을 시, 나타나는 Tab
   for (let i = 0; i < list.length; i++) {
     if (list[i].isComplete === true) {
-      // 체크버튼 클릭했을 대 Tab
+      // 체크버튼 클릭했을 때 Tab
       resultHTML += `<div class="done-task">
       <div class="task-done">${list[i].taskContent}</div>
       <div>
@@ -87,7 +87,6 @@ function render() {
   </div>`;
     }
   }
-
   document.getElementById("task-board").innerHTML = resultHTML;
 }
 // 할일을 체크했을때 동작하는함수
@@ -105,15 +104,34 @@ function toggleComplete(id) {
   render();
   console.log(taskList);
 }
-// 삭제버튼 클릭시 로직
+// 삭제버튼 함수
 function deleteTask(id) {
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].id === id) {
-      taskList.splice(i, 1);
-      break;
+  // all내에 id를 찾아 삭제
+  if (mode === "all") {
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].id === id) {
+        taskList.splice(i, 1);
+        break;
+      }
+    }
+    console.log(taskList);
+    render();
+  } else if (mode === "ongoing" || mode === "done") {
+    for (let i = 0; i < filterList.length; i++) {
+      if (filterList[i].id === id) {
+        filterList.splice(i, 1);
+        break;
+      }
+    }
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].id === id) {
+        taskList.splice(i, 1);
+        break;
+      }
     }
   }
   render();
+
   // console.log(taskList); // 잘동작하는지 console.log에서 체크
 }
 // filter함수
@@ -124,11 +142,11 @@ function filter(event) {
   // all일때 -> 전체리스트를 보여준다 -> render를 보여주면 됨
   // ongoing일때 -> 진행중인 items를 보여준다 -> task.isComplete = false
   // done일때 -> 끝난 items를 보여준다 -> task.isComplete = true
+  // 모두를 클릭시 나타나는 로직
   if (mode === "all") {
-    // 모두를 클릭시 나타나는 로직
     render();
-  } else if (mode === "ongoing") {
     // 진행중 클릭시 나타나는 로직
+  } else if (mode === "ongoing") {
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isComplete === false) {
         filterList.push(taskList[i]);
@@ -136,8 +154,8 @@ function filter(event) {
     }
     render();
     console.log(filterList);
-  } else if (mode === "done") {
     // 끝남 클릭시 나타나는 로직
+  } else if (mode === "done") {
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isComplete === true) {
         filterList.push(taskList[i]);
@@ -147,6 +165,7 @@ function filter(event) {
     render();
   }
 }
+
 // 입력창 입력시 add버튼 활성화함수
 function validate() {
   if (taskInput.value === "") {
