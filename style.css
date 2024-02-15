@@ -1,24 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Diphylleia&display=swap");
+/* task 서서히 나타나게 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 body {
+  font-family: "Diphylleia", serif;
   margin: 0;
-  background-image: url("images/background.jpg");
+  background-image: url("images/galaxy.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .container {
-  background-color: white;
+  /* text-align: center -> h1태그 input창 가운데로 */
+  text-align: center;
+  /* background-color: white;
+  background-image: url("images/galaxy.jpg"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
   min-height: 100vh;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
+h1 {
+  color: violet;
+  font-size: 50px;
+}
+
+#add-button {
+  border-radius: 5px;
+  background-color: aquamarine;
+}
+
 .task-area {
   border: 1px solid lightgray;
+  border-radius: 10px;
 }
+
 .task-tabs {
   display: flex;
   border-bottom: 1px solid lightgray;
   position: relative;
+  color: aliceblue;
 }
 .task-tabs div {
   padding: 1em;
@@ -37,18 +67,24 @@ body {
 }
 
 .task {
+  /* task서서히 나타나게설정 */
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+
   display: flex;
   justify-content: space-between;
   padding: 1em;
+  border-bottom: 1px solid rgb(250, 249, 249);
+  background-color: rgb(254, 254, 254);
 }
 
 .done-task {
   display: flex;
   justify-content: space-between;
   padding: 1em;
-  background-color: gray;
+  background-color: rgb(124, 124, 125);
 }
 /* 완료된 요소에 밑줄긋기 */
 .task-done {
-  text-decoration: line-through;
+  text-decoration: line-through crimson;
 }
