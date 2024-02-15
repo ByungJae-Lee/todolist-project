@@ -9,11 +9,28 @@
 // 끝남탭은 -> 끝난 아이템만, 진행중탭은 -> 진행중인 아이템만
 // 전체탭누르면 -> 다시 전체아이템으로 돌아옴
 
-let taskInput = document.getElementById("task-input");
-let addButton = document.getElementById("add-button");
-let taskList = [];
+let taskInput = document.getElementById("task-input"); // // 입력창
+let addButton = document.getElementById("add-button"); // +버튼
+let tabs = document.querySelectorAll(".task-tabs div"); // querySelectorAll는 조건에 만족하는 모든 것을 가져온다는 것
+let underLine = document.getElementById("under-line"); // under-line
+let taskList = []; // 빈 배열
+let mode = "all";
+let filterList = [];
+let doneList = [];
 
-addButton.addEventListener("click", addTask);
+// 언더바 인디케이터
+tabs.forEach((menu) =>
+  menu.addEventListener("click", (e) => underlineIndicator(e))
+);
+
+addButton.addEventListener("click", addTask); // +버튼 이벤트생성
+
+for (let i = 1; i <= tabs.length; i++) {
+  tabs[i].addEventListener("click", function (event) {
+    filter(event);
+  });
+}
+console.log(tabs);
 
 function addTask() {
   let task = {
@@ -25,27 +42,37 @@ function addTask() {
   console.log(taskList);
   render();
 }
-
+// render 함수
 function render() {
+  // 1. 내가 선택한 탭에 따라
+  // 2. 리스트를 다르게 보여준다
+  // all -> taskList / ongoing, done -> filterList
+  let list = [];
+
+  if (mode === "all") {
+    list = taskList;
+  } else if (mode === "ongoing" || mode === "done") {
+    list = filterList;
+  }
   let resultHTML = "";
   // 할일 생성됬을 시, 나타나는 Tab
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].isComplete === true) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].isComplete === true) {
       // 체크버튼 클릭했을 대 Tab
       resultHTML += `<div class="done-task">
-      <div class="task-done">${taskList[i].taskContent}</div>
+      <div class="task-done">${list[i].taskContent}</div>
       <div>
-        <button onclick="toggleComplete('${taskList[i].id}')" ><i class="fa-solid fa-rotate-right"></i></button>
-        <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
+        <button onclick="toggleComplete('${list[i].id}')" ><i class="fa-solid fa-rotate-right"></i></button>
+        <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-trash"></i></button>
       </div>
     </div>`;
     } else {
       // 체크버튼 클릭하지 않은 Tab
       resultHTML += `<div class="task">
-    <div>${taskList[i].taskContent}</div>
+    <div>${list[i].taskContent}</div>
     <div>
-      <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check"></i></button>
-      <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
+      <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-check"></i></button>
+      <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-trash"></i></button>
     </div>
   </div>`;
     }
@@ -79,6 +106,44 @@ function deleteTask(id) {
   render();
   // console.log(taskList); // 잘동작하는지 console.log에서 체크
 }
+// filter함수
+function filter(event) {
+  // console.log("filter", event.target.id); tabs의 모두,진행중, 끝남 클릭 시 id 잘 들어오는지 확인
+  mode = event.target.id;
+  filterList = [];
+  // all일때 -> 전체리스트를 보여준다 -> render를 보여주면 됨
+  // ongoing일때 -> 진행중인 items를 보여준다 -> task.isComplete = false
+  // done일때 -> 끝난 items를 보여준다 -> task.isComplete = true
+  if (mode === "all") {
+    // 모두를 클릭시 나타나는 로직
+    render();
+  } else if (mode === "ongoing") {
+    // 진행중 클릭시 나타나는 로직
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === false) {
+        filterList.push(taskList[i]);
+      }
+    }
+    render();
+    console.log(filterList);
+  } else if (mode === "done") {
+    // 끝남 클릭시 나타나는 로직
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === true) {
+        filterList.push(taskList[i]);
+      }
+    }
+    console.log(filterList);
+    render();
+  }
+}
+// underLine 이동하는 함수
+function underlineIndicator(e) {
+  underLine.style.left = e.currentTarget.offsetLeft + "px";
+  underLine.style.width = e.currentTarget.offsetWidth + "px";
+  underLine.style.top = e.currentTarget.offsetHeight + "px";
+}
+
 // 랜덤ID생성기
 function randomIDGenerate() {
   return "_" + Math.random().toString(36).substr(2, 9);

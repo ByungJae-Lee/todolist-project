@@ -22,16 +22,18 @@ body {
 }
 .task-tabs div {
   padding: 1em;
+  cursor: pointer;
 }
-
+/* 언더바 꾸미는 패턴 */
 #under-line {
+  position: absolute;
   height: 4px;
   background-color: aqua;
-  position: absolute;
   width: 60px;
   left: 0px;
   top: 52px;
   padding: 0px;
+  transition: 0.5s;
 }
 
 .task {
