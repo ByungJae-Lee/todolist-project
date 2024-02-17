@@ -12,7 +12,7 @@
 body {
   font-family: "Diphylleia", serif;
   margin: 0;
-  background-image: url("images/galaxy.jpg");
+  background-image: url("images/pure.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -30,13 +30,13 @@ body {
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 h1 {
-  color: violet;
+  color: white;
   font-size: 50px;
 }
 
 #add-button {
   border-radius: 5px;
-  background-color: aquamarine;
+  background-color: white;
 }
 
 .task-area {
@@ -57,11 +57,11 @@ h1 {
 /* 언더바 꾸미는 패턴 */
 #under-line {
   position: absolute;
-  height: 4px;
+  height: 5px;
   background-color: aqua;
   width: 60px;
   left: 0px;
-  top: 52px;
+  top: 50px;
   padding: 0px;
   transition: 0.5s;
 }
@@ -75,6 +75,7 @@ h1 {
   justify-content: space-between;
   padding: 1em;
   border-bottom: 1px solid rgb(250, 249, 249);
+
   background-color: rgb(254, 254, 254);
 }
 
