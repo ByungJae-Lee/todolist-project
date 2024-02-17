@@ -9,29 +9,30 @@
 // 끝남탭은 -> 끝난 아이템만, 진행중탭은 -> 진행중인 아이템만
 // 전체탭누르면 -> 다시 전체아이템으로 돌아옴
 
-let taskInput = document.getElementById("task-input"); // // 입력창
-let addButton = document.getElementById("add-button"); // +버튼
+let taskInput = document.getElementById("task-input");
+let addButton = document.getElementById("add-button");
 let tabs = document.querySelectorAll(".task-tabs div"); // querySelectorAll는 조건에 만족하는 모든 것을 가져온다는 것
-let underLine = document.getElementById("under-line"); // under-line
-let taskList = []; // 빈 배열
+let underLine = document.getElementById("under-line");
+let taskList = [];
 let mode = "all";
 let filterList = [];
 let doneList = [];
 
-// input 입력시 add버튼 활성화
-taskInput.addEventListener("keyup", validate);
-// 언더바 인디케이터
+taskInput.addEventListener("keyup", validate); // input 입력시 add버튼 활성화
+
+// 언더바 이벤트
 tabs.forEach((menu) =>
   menu.addEventListener("click", (e) => underlineIndicator(e))
 );
-// enter키 입력했을때 클릭효과이벤트
+
+// enter 입력이벤트
 taskInput.addEventListener("keyup", (e) => {
   if (e.keyCode === 13) {
-    e.preventDefault(); // 기존 enter의 효과들을 무효화시킴, 버튼 자체만 누른걸로 만들어줌
-    addButton.click(); // 하단 add버튼의 클릭이 실행되는 것과 같게 해줌
+    e.preventDefault(); // 기존의 enter의 효과무효화, enter자체만 누른걸로 만들어줌
+    addButton.click(); // 하단 add버튼의 click 실행되는 것과 같게 해줌
   }
 });
-addButton.addEventListener("click", addTask); // +클릭시 이벤트
+addButton.addEventListener("click", addTask); // add버튼 클릭이벤트
 
 for (let i = 1; i <= tabs.length; i++) {
   tabs[i].addEventListener("click", function (event) {
@@ -39,7 +40,7 @@ for (let i = 1; i <= tabs.length; i++) {
   });
 }
 console.log(tabs);
-
+// add버튼 클릭 후 함수
 function addTask() {
   let task = {
     id: randomIDGenerate(),
@@ -166,7 +167,7 @@ function filter(event) {
   }
 }
 
-// 입력창 입력시 add버튼 활성화함수
+// input입력시 add버튼 활성여부 함수
 function validate() {
   if (taskInput.value === "") {
     addButton.disabled = true;
@@ -175,7 +176,7 @@ function validate() {
   }
 }
 
-// underLine 이동하는 함수
+// under-line 이동하는 함수
 function underlineIndicator(e) {
   underLine.style.left = e.currentTarget.offsetLeft + "px";
   underLine.style.width = e.currentTarget.offsetWidth + "px";

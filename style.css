@@ -1,3 +1,4 @@
+/* 구글폰트 */
 @import url("https://fonts.googleapis.com/css2?family=Diphylleia&display=swap");
 /* task 서서히 나타나게 */
 @keyframes fadeIn {
@@ -8,7 +9,6 @@
     opacity: 1;
   }
 }
-
 body {
   font-family: "Diphylleia", serif;
   margin: 0;
@@ -84,7 +84,7 @@ h1 {
   padding: 1em;
   background-color: rgb(124, 124, 125);
 }
-/* 완료된 요소에 밑줄긋기 */
+/* 완료된 task에 밑줄긋기 */
 .task-done {
   text-decoration: line-through crimson;
 }
